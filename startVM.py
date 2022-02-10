@@ -5,7 +5,7 @@ import sys
 import base64
 import importlib.util
 import time
-fbxmlib = importlib.util.spec_from_file_location("fbxm_lib", "/home/freebox/fbxmanager/fbxm_lib.py")
+fbxmlib = importlib.util.spec_from_file_location("fbxm_lib", os.getenv('HOME')+"/fbxmanager/fbxm_lib.py")
 fbxm_lib = importlib.util.module_from_spec(fbxmlib)
 fbxmlib.loader.exec_module(fbxm_lib)
 

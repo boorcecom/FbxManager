@@ -5,18 +5,15 @@ import os
 import time
 import base64
 import importlib.util
-from datetime import date
-
-fbxmlib = importlib.util.spec_from_file_location("fbxm_lib", "/home/freebox/fbxmanager/fbxm_lib.py")
+fbxmlib = importlib.util.spec_from_file_location("fbxm_lib", os.getenv('HOME')+"/fbxmanager/fbxm_lib.py")
 fbxm_lib = importlib.util.module_from_spec(fbxmlib)
 fbxmlib.loader.exec_module(fbxm_lib)
 
 vmname=sys.argv[1]
-weekday=[ 'L', 'Ma', 'Me', 'J', 'V', 'S', 'D']
-today=weekday[date.today().weekday()]
+
 fileQCOW2="/Freebox/VMs/"+vmname+".qcow2"
 fileEFIVARS="/Freebox/VMs/"+vmname+".qcow2.efivars"
-destination="/EXTERNAL/VM/"+today
+destination="/EXTERNAL/VM"
 
 vms=fbxm_lib.doApiGet("/vm/")
 if vms['success']:

@@ -7,8 +7,9 @@ import os.path
 from hashlib import sha1
 import hmac
 import sys
+import socket
 
-FBXM_PATH="/home/nicolas/fbxmanager"
+FBXM_PATH=os.getenv('HOME')+"/fbxmanager"
 FBXM_APTOK_FILE=FBXM_PATH+"/app.token"
 FBXM_SESSTOK_FILE=FBXM_PATH+"/sess.token"
 FreeBoxip="192.168.0.254"
@@ -16,7 +17,7 @@ apiPath="/api/"
 apiVersion="8"
 apiUrl="http://"+FreeBoxip+apiPath+"/v"+apiVersion+"/"
 FBXM_version="0.0.3"
-HostName="tigrou"
+HostName=socket.gethostname()
 
 def getAppToken():
     request = { "app_id": "com.boorce.fbxm","app_name": "FBXShell Manger","app_version": FBXM_version,"device_name": HostName }
