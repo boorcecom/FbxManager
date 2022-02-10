@@ -8,7 +8,7 @@ from hashlib import sha1
 import hmac
 import sys
 
-FBXM_PATH="/home/freebox/fbxmanager"
+FBXM_PATH="/home/nicolas/fbxmanager"
 FBXM_APTOK_FILE=FBXM_PATH+"/app.token"
 FBXM_SESSTOK_FILE=FBXM_PATH+"/sess.token"
 FreeBoxip="192.168.0.254"
@@ -16,7 +16,7 @@ apiPath="/api/"
 apiVersion="8"
 apiUrl="http://"+FreeBoxip+apiPath+"/v"+apiVersion+"/"
 FBXM_version="0.0.3"
-HostName="darkmicrostar"
+HostName="tigrou"
 
 def getAppToken():
     request = { "app_id": "com.boorce.fbxm","app_name": "FBXShell Manger","app_version": FBXM_version,"device_name": HostName }
@@ -30,16 +30,16 @@ def getAppToken():
     fDesc.write(appToken)
     fDesc.close()
     # Attente de la validation
-    while true:
-        answer=requests.get(apiUrl+"login/authorize/"+trackID).json()
+    while True:
+        answer=requests.get(apiUrl+"login/authorize/"+str(trackID)).json()
         if not(answer["success"]): 
             print("error : %s " % answer["msg"] )
             sys.exit("getAppToken ended.")
-
+        print(answer)
         if answer["result"]["status"] == "granted":
             print("access granted !")
             break
-        else:
+        elif answer["result"]["status"] != "pending":
             sys.exit("timeout/denied sur grant !")
         time.sleep(5)
 
