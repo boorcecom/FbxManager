@@ -25,7 +25,8 @@ if vms['success']:
                     time.sleep(10)
                     vm=fbxm_lib.doApiGet("/vm/"+id)['result']
             if vm['status']=="running":
-                os.system("ssh -o StrictHostKeyChecking=no freebox@"+vmname+" sudo poweroff")
+                #os.system("ssh -o StrictHostKeyChecking=no freebox@"+vmname+" sudo poweroff")
+                fbxm_lib.doApiPost("/vm/"+id+"/powerbutton")
                 count=0
                 while count<30 and vm['status']!='stopped':
                     time.sleep(10)
